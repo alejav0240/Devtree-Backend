@@ -11,7 +11,7 @@ export const createAccount = async (req: Request, res: Response) => {
     const userExists = await User.findOne({ email });
 
     if (userExists) {
-        const error = new Error("Usuario ya existe");
+        const error = new Error("Email ya esta registrado");
         res.status(409).json({ error: error.message });
         return;
     }
@@ -19,7 +19,7 @@ export const createAccount = async (req: Request, res: Response) => {
     const handle = slug(req.body.handle, '');
     const handleExists = await User.findOne({ handle });
     if (handleExists) {
-        const error = new Error("Nombre de usuario ya existe");
+        const error = new Error("Nombre de usuario ya esta registrado");
         res.status(409).json({ error: error.message });
         return;
     }
