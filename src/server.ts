@@ -7,11 +7,11 @@ import { corsConfig } from './config/cors';
 
 const app = express();
 
-//cors
-app.use(cors(corsConfig))
-
 //conectar a la base de datos
 connectDB();
+
+//cors
+app.use(cors(corsConfig))
 
 //leer datos
 app.use(express.json());

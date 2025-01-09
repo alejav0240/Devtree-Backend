@@ -2,7 +2,7 @@ import User from "../models/User";
 import { Request, Response } from "express";
 import { checkPassword, hashPassword } from "../utils/auth";
 import slug from "slug";
-import { validationResult } from "express-validator";
+import { generateJWT } from "../utils/jwt";
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -40,7 +40,8 @@ export const login = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-        res.status(404).send("Usuario no encontrado");
+        const error = new Error("Usuario no encontrado");
+        res.status(404).json({ error: error.message });
         return;
     }
 
@@ -52,6 +53,13 @@ export const login = async (req: Request, res: Response) => {
         return;
     }
 
-    res.status(200).send("Usuario logeado");
+    //generar el token
+    const token = generateJWT({id: user.id});
+    console.log(token);
+    res.status(200).send(token);
 
+}
+
+export const getUSer = async (req: Request, res: Response) => {
+    res.status(200).json(req.user);
 }

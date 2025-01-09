@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { createAccount, login } from "./handlers";
+import { createAccount, getUSer, login } from "./handlers";
 import { body } from "express-validator";
 import { handleInputErrors } from "./middleware/validation";
+import { authenticate } from "./middleware/auth";
 
 
 const router = Router();
@@ -28,8 +29,7 @@ router.post("/auth/register",
     createAccount
 )
 
-
-router.post("/login",
+router.post("/auth/login",
     body('email')
         .isEmail()
         .withMessage('El email no es valido'),
@@ -39,5 +39,7 @@ router.post("/login",
     handleInputErrors,
     login
 )
+
+router.get("/user",authenticate,getUSer)
 
 export default router;
