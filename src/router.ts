@@ -1,12 +1,17 @@
 import { Router } from "express";
-import { createAccount, getUSer, login, updateProfile } from "./handlers";
+import {
+  createAccount,
+  getUSer,
+  getUserByHandle,
+  login,
+  updateProfile,
+  uploadImage,
+} from "./handlers";
 import { body } from "express-validator";
 import { handleInputErrors } from "./middleware/validation";
 import { authenticate } from "./middleware/auth";
 
 const router = Router();
-
-/* Autentificacion y registro */
 
 router.post(
   "/auth/register",
@@ -32,6 +37,7 @@ router.post(
 );
 
 router.get("/user", authenticate, getUSer);
+
 router.patch(
   "/user",
   body("handle").notEmpty().withMessage("El nombre no puede estar vacio"),
@@ -43,5 +49,9 @@ router.patch(
   authenticate,
   updateProfile
 );
+
+router.post("/user/image", authenticate, uploadImage);
+
+router.get("/:handle", getUserByHandle);
 
 export default router;
