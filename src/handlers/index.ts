@@ -123,13 +123,29 @@ export const getUserByHandle = async (req: Request, res: Response) => {
       "-_id -__v -email -password"
     );
     if (!user) {
-      const error = new Error("Usuario no encontrado");
+      const error = new Error("Nombre de Usuario no encontrado");
       res.status(404).json({ error: error.message });
       return;
     }
     res.json(user);
   } catch (e) {
     const error = new Error("Error al actualizar el perfil");
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const searchByHandle = async (req: Request, res: Response) => {
+  try {
+    const { handle } = req.body;
+    const userExists = await User.findOne({ handle });
+    if (userExists) {
+      const error = new Error(`${handle} ya esta registrado`);
+      res.status(409).json({ error: error.message });
+      return;
+    }
+    res.send(`${handle} esta disponible`);
+  } catch (e) {
+    const error = new Error("Error al buscar el usuario");
     res.status(500).json({ error: error.message });
   }
 };
