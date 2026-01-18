@@ -1,68 +1,149 @@
-# DevTree Backend
+# backend DevTree
 
-Este es el backend del proyecto DevTree, una aplicación para gestionar proyectos de desarrollo.
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
-## Requisitos
+Este es un proyecto de API RESTful robusto y escalable, construido con Express.js y TypeScript, diseñado para servir como el backend de la aplicación DevTree. Proporciona una gestión completa de usuarios, autenticación segura basada en JWT, y una integración fluida con MongoDB para la persistencia de datos y Cloudinary para la gestión de archivos multimedia.
 
-- Node.js >= 14.x
-- npm >= 6.x
-- MongoDB >= 4.x
+## 🚀 Características Principales
 
-## Instalación
+*   **API RESTful:** Conjunto de endpoints bien estructurados para la interacción con los recursos del backend.
+*   **Autenticación de Usuarios:** Sistema de autenticación seguro basado en JSON Web Tokens (JWT) y `bcryptjs` para el hashing de contraseñas.
+*   **Validación de Entradas:** Utiliza `express-validator` para garantizar la integridad y seguridad de los datos recibidos.
+*   **Gestión de Archivos Multimedia:** Integración con Cloudinary para el almacenamiento, optimización y entrega de imágenes y otros archivos.
+*   **Persistencia de Datos:** Conexión a MongoDB a través de Mongoose para una gestión de datos eficiente y flexible.
+*   **Diseño Modular:** Código organizado en módulos (`config`, `middleware`, `models`, `handlers`, `utils`) para facilitar la mantenibilidad y escalabilidad.
+*   **Configuración Basada en Entorno:** Gestión de variables de entorno para una configuración flexible y segura.
 
-1. Clona el repositorio:
-  ```sh
-  git clone https://github.com/tu-usuario/devtree-backend.git
-  ```
-2. Navega al directorio del proyecto:
-  ```sh
-  cd devtree-backend
-  ```
-3. Instala las dependencias:
-  ```sh
-  npm install
-  ```
+## 📋 Requisitos Previos
 
-## Configuración
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-Crea un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
+*   **Node.js** (versión 14 o superior)
+*   **npm** (viene con Node.js)
+*   **MongoDB** (instancia local o remota, por ejemplo, MongoDB Atlas)
+*   Una cuenta de **Cloudinary** (para la gestión de archivos)
 
-```env
-MONGO_URI=mongodb://localhost:27017/devtree
-PORT=3000
-JWT_SECRET=tu_secreto_jwt
-```
+## 🛠️ Instalación
 
-## Uso
+Sigue estos pasos para configurar y ejecutar el proyecto localmente:
 
-Para iniciar el servidor en modo desarrollo, ejecuta:
+1.  **Clona el repositorio:**
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    cd Devtree-Backend
+    ```
 
-```sh
+2.  **Instala las dependencias:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configura las variables de entorno:**
+    Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
+
+    ```env
+    PORT=4000
+    DATABASE_URL=mongodb://localhost:27017/devtree_db # O tu URL de MongoDB Atlas
+    JWT_SECRET=tu_secreto_jwt_muy_seguro
+    CLOUD_NAME=tu_cloud_name_cloudinary
+    API_KEY=tu_api_key_cloudinary
+    API_SECRET=tu_api_secret_cloudinary
+    CORS_ORIGIN=* # O la URL de tu frontend, ej: http://localhost:3000
+    ```
+
+    *Asegúrate de reemplazar los valores de ejemplo con tus propias credenciales y configuraciones.*
+
+4.  **Compila el código TypeScript (para producción):**
+    ```bash
+    npm run build
+    ```
+
+## 🚀 Uso
+
+### Modo Desarrollo
+
+Para iniciar el servidor en modo desarrollo con recarga automática:```bash
 npm run dev
 ```
 
-Para iniciar el servidor en modo producción, ejecuta:
+El servidor se ejecutará en `http://localhost:PORT` (por defecto `http://localhost:4000`).
 
-```sh
+### Modo Producción
+
+Para iniciar el servidor compilado:```bash
 npm start
 ```
 
-## Endpoints
+### Ejemplos de Endpoints (Rutas Comunes)
 
-- `GET /api/projects` - Obtiene todos los proyectos
-- `POST /api/projects` - Crea un nuevo proyecto
-- `GET /api/projects/:id` - Obtiene un proyecto por ID
-- `PUT /api/projects/:id` - Actualiza un proyecto por ID
-- `DELETE /api/projects/:id` - Elimina un proyecto por ID
+A continuación, se presentan ejemplos de cómo interactuar con la API. Recuerda que los endpoints exactos pueden variar; consulta `src/router.ts` y los archivos de `handlers` para la definición precisa.
 
-## Contribuir
+**Autenticación de Usuario:**
 
-1. Haz un fork del repositorio.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza tus cambios y haz commit (`git commit -am 'Añadir nueva funcionalidad'`).
-4. Sube tus cambios (`git push origin feature/nueva-funcionalidad`).
-5. Abre un Pull Request.
+*   **POST /api/auth/register**
+    ```json
+    {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "password": "securepassword123"
+    }
+    ```
+*   **POST /api/auth/login**
+    ```json
+    {
+        "email": "john.doe@example.com",
+        "password": "securepassword123"
+    }
+    ```
+    *Retorna un JWT para usar en futuras solicitudes autenticadas.*
 
-## Licencia
+**Usuario Autenticado:**
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+*   **GET /api/auth/me** (Requiere JWT en el encabezado `Authorization: Bearer <token>`)
+    *Obtiene la información del usuario actualmente autenticado.*
+
+**Ejemplo de Subida de Archivos (Cloudinary):**
+
+*   **POST /api/upload** (Requiere JWT y un archivo en el cuerpo de la solicitud, ej: `multipart/form-data`)
+    *Sube una imagen a Cloudinary y retorna la URL.*
+
+## 📂 Estructura del Proyecto
+```
+Devtree-Backend/
+├── src/
+│   ├── config/             # Archivos de configuración (DB, Cloudinary, CORS)
+│   │   ├── cloudinary.ts
+│   │   ├── cors.ts
+│   │   └── db.ts
+│   ├── handlers/           # Lógica de negocio para cada endpoint
+│   │   └── index.ts
+│   ├── middleware/         # Middlewares personalizados (autenticación, validación)
+│   │   ├── auth.ts
+│   │   └── validation.ts
+│   ├── models/             # Definiciones de esquemas de Mongoose (ej: User)
+│   │   └── User.ts
+│   ├── utils/              # Utilidades varias (JWT, helpers de autenticación)
+│   │   ├── auth.ts
+│   │   └── jwt.ts
+│   ├── index.ts            # Punto de entrada principal de la aplicación
+│   ├── router.ts           # Definición de todas las rutas de la API
+│   └── server.ts           # Configuración e inicialización del servidor Express
+├── README.md               # Este archivo
+├── package-lock.json
+├── package.json            # Metadatos del proyecto y dependencias
+└── tsconfig.json           # Configuración de TypeScript
+```
+
+## 💻 Tecnologías Utilizadas
+
+*   **TypeScript**
+*   **Node.js**
+*   **Express.js**
+*   **MongoDB** (con Mongoose)
+*   **Cloudinary**
+*   **express-validator**
+*   **jsonwebtoken**
+*   **bcryptjs**
+*   **cors**
+*   **dotenv**
