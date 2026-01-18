@@ -1,7 +1,6 @@
 # backend DevTree
 
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
 Este es un proyecto de API RESTful robusto y escalable, construido con Express.js y TypeScript, diseñado para servir como el backend de la aplicación DevTree. Proporciona una gestión completa de usuarios, autenticación segura basada en JWT, y una integración fluida con MongoDB para la persistencia de datos y Cloudinary para la gestión de archivos multimedia.
 
@@ -30,7 +29,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente:
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
+    git clone https://github.com/alejav0240/Devtree-Backend.git
     cd Devtree-Backend
     ```
 
