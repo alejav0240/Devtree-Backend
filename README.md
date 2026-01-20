@@ -4,6 +4,8 @@
 
 Este es un proyecto de API RESTful robusto y escalable, construido con Express.js y TypeScript, diseñado para servir como el backend de la aplicación DevTree. Proporciona una gestión completa de usuarios, autenticación segura basada en JWT, y una integración fluida con MongoDB para la persistencia de datos y Cloudinary para la gestión de archivos multimedia.
 
+![Home del Proyecto](images/home.png) 
+
 ## 🚀 Características Principales
 
 *   **API RESTful:** Conjunto de endpoints bien estructurados para la interacción con los recursos del backend.
